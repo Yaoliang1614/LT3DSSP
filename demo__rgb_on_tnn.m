@@ -2,7 +2,7 @@ clear all
 clc;
  
 
-load Carphone_0.1Noise.mat %ÎÒÕâÀïµÄ¶à¹âÆ×Êı¾İ²»ĞèÒª¹éÒ»»¯¡£
+load Carphone_0.1Noise.mat %æˆ‘è¿™é‡Œçš„å¤šå…‰è°±æ•°æ®ä¸éœ€è¦å½’ä¸€åŒ–ã€‚
 %%
 maxP = max(abs(X(:)));
 [n1,n2,n3]=size(X);
@@ -14,12 +14,12 @@ for i=1:n3
     A=[A,s];
 end
 P=A;
-%% TNNĞÍ²ÎÊıÉèÖÃ
+%% TNNå‹å‚æ•°è®¾ç½®
 
 lambdas=1/(sqrt(max(n1,n2)));
-betas=[0.01:0.01:0.1 ];  %Æ×Îó²î²ÎÊı
-gammas=  [ 0.005 0.01 0.05 0.1 0.5];  %Pµ÷½Úµ÷½Ú²ÎÊı
-steps  =1 ; %²½³¤
+betas=[0.01:0.01:0.1 ];  %è°±è¯¯å·®å‚æ•°
+gammas=  [ 0.005 0.01 0.05 0.1 0.5];  %Pè°ƒèŠ‚è°ƒèŠ‚å‚æ•°
+steps  =1 ; %æ­¥é•¿
 
 
 p=0.0;
@@ -33,7 +33,7 @@ for jj=1:length(lambdas)
             gamma=gammas(j);
             for i=1:length(steps)
                 step=  steps(i);
-                [Xhat, ErrArr,psnrrs] = TRY(Xn,P,lambda,beta,gamma,step,U,V,'tnn');
+                [L,ErrArr ] = LT3DSSP(X,P,lambda,beta,gamma,step,U,V,'tnn')
                 Xhat = max(Xhat,0);
                 Xhat = min(Xhat,1);
            %    [PSNR, SSIM , FSIM ] = Img_QA(X,Xhat,1);
